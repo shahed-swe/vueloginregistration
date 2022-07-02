@@ -67,6 +67,12 @@ export default {
             }
             
         }
+    },
+    mounted() {
+        this.token = window.localStorage.getItem('token')
+        if (this.token) {
+            this.$router.push("/profile")
+        }
     }
 }
 </script>

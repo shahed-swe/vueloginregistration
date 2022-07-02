@@ -28,7 +28,8 @@ import axios from 'axios'
         data() {
             return {
                 email: '',
-                password: ''
+                password: '',
+                token: ''
             }
         },
         methods: {
@@ -43,6 +44,8 @@ import axios from 'axios'
                     if(response.status === 200){
                         localStorage.setItem("token", response.data.token)
                     }
+                    this.$router.push("/profile")
+                    window.location.reload()
                 } catch (error) {
                     if(error){
                         this.$swal("Login Unsuccessful")
@@ -50,6 +53,12 @@ import axios from 'axios'
                 }
                 
 
+            }
+        },
+        mounted(){
+            this.token =  window.localStorage.getItem('token')
+            if(this.token) {
+                this.$router.push("/profile")
             }
         }
     }

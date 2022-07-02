@@ -13,14 +13,38 @@ import HelloWorld from '@/components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/profile">Profile</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/registration">Registration</RouterLink>
+        
+        <RouterLink v-if="!isAuthenticated" to="/login">Login</RouterLink>
+        <RouterLink v-if="!isAuthenticated" to="/registration">Registration</RouterLink>
+        <RouterLink v-if="isAuthenticated" @click="logout" to="#logout">Logout</RouterLink>
       </nav>
     </div>
   </header>
 
   <RouterView />
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        isAuthenticated: false,
+      }
+    },
+    methods: {
+      logout() {
+        window.localStorage.removeItem('token')
+        this.isAuthenticated = false
+      }
+    },
+    mounted() {
+      const token = window.localStorage.getItem('token')
+      if(token){
+        this.isAuthenticated = true
+      }
+    }
+  }
+</script>
 
 <style>
 @import '@/assets/base.css';
