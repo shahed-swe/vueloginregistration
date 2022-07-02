@@ -1,9 +1,10 @@
 <script setup>
-// import TheWelcome from '@/components/TheWelcome.vue'
+import LoginForm from '../components/forms/LoginForm.vue';
 </script>
 
 <template>
     <main>
-        <H1>Hello this is welcome login page</H1>
+        <h1>Login</h1>
+        <LoginForm />
     </main>
 </template>
