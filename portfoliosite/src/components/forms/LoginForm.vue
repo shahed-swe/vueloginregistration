@@ -21,7 +21,7 @@
 
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
     export default {
         name: 'LoginForm',
@@ -34,31 +34,33 @@ import axios from 'axios'
         },
         methods: {
             async handleLogin(){
-                const data = {
-                    email: this.email,
-                    password: this.password
-                }
-                try {
-                    const response = await axios.post('http://localhost:4000/api/v1/user/login', data)
-                    console.log(response)
-                    if(response.status === 200){
-                        localStorage.setItem("token", response.data.token)
-                    }
-                    this.$router.push("/profile")
-                    window.location.reload()
-                } catch (error) {
-                    if(error){
-                        this.$swal("Login Unsuccessful")
-                    }
-                }
+                this.$store.dispatch("makeAuthenticated")
+                localStorage.setItem("token", "newtokenfromme")
+                // const data = {
+                //     email: this.email,
+                //     password: this.password
+                // }
+                // try {
+                //     const response = await axios.post('http://localhost:4000/api/v1/user/login', data)
+                //     console.log(response)
+                //     if(response.status === 200){
+                //         localStorage.setItem("token", response.data.token)
+                //     }
+                    
+                //     this.$router.push("/profile")
+                // } catch (error) {
+                //     if(error){
+                //         this.$swal("Login Unsuccessful")
+                //     }
+                // }
                 
 
             }
         },
         mounted(){
-            this.token =  window.localStorage.getItem('token')
-            if(this.token) {
-                this.$router.push("/profile")
+            const isAuthenticated = this.$store.state.isAuthenticated
+            if (isAuthenticated){
+                this.$route.push('/')
             }
         }
     }

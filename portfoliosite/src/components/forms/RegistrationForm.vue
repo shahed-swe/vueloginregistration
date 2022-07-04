@@ -69,9 +69,9 @@ export default {
         }
     },
     mounted() {
-        this.token = window.localStorage.getItem('token')
-        if (this.token) {
-            this.$router.push("/profile")
+        const isAuthenticated = this.$store.state.isAuthenticated
+        if (isAuthenticated) {
+            this.$route.push('/')
         }
     }
 }

@@ -1,15 +1,22 @@
 <template>
   <div class="profile">
-    <h1>This is a user profile page</h1>
+    <input type="text" v-model="projectname">
+    <button @click="addproject">Add</button>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .profile {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+<script>
+export default {
+  data(){
+    return {
+      projectname: ''
+    }
+  },
+  methods:{
+    addproject(){
+      this.$store.dispatch("addProject", this.projectname)
+    }
   }
+
 }
-</style>
+</script>
